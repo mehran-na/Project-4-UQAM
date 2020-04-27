@@ -1,0 +1,426 @@
+//put into /test/ with .java
+
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Function;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class TP4Test {
+
+    @Test
+    void hauteur1() {
+        ArbreBinaire< Integer > a = new ArbreBinaire<>();
+
+        assertEquals( 0, a.hauteur( 3 ) );
+    }
+    @Test
+    void hauteur2() {
+        ArbreBinaire< Integer > a = new ArbreBinaire<>();
+
+        a.inserer( 3 );
+
+        assertEquals( 1, a.hauteur( 3 ) );
+    }
+    @Test
+    void hauteur3() {
+        ArbreBinaire< Integer > a = new ArbreBinaire<>();
+
+        a.inserer( 3 );
+        a.inserer( 4 );
+        a.inserer( 5 );
+
+        assertEquals( 3, a.hauteur( 3 ) );
+    }
+    @Test
+    void hauteur4() {
+        ArbreBinaire< Integer > a = new ArbreBinaire<>();
+
+        a.inserer( 3 );
+        a.inserer( 2 );
+        a.inserer( 1 );
+        a.inserer( 4 );
+        a.inserer( 5 );
+
+        assertEquals( 3, a.hauteur( 3 ) );
+    }
+    @Test
+    void hauteur5() {
+        ArbreBinaire< Integer > a = new ArbreBinaire<>();
+
+        a.inserer( 3 );
+        a.inserer( 5 );
+        a.inserer( 4 );
+        a.inserer( 7 );
+
+        assertEquals( 2, a.hauteur( 5 ) );
+    }
+    @Test
+    void hauteur6() {
+        ArbreBinaire< Integer > a = new ArbreBinaire<>();
+
+        a.inserer( 3 );
+        a.inserer( 5 );
+        a.inserer( 4 );
+        a.inserer( 8 );
+        a.inserer( 6 );
+        a.inserer( 7 );
+
+        assertEquals( 4, a.hauteur( 5 ) );
+    }
+
+
+
+
+
+
+
+    @Test
+    void triDoubleSelection1() {
+        Integer [] t = {1};
+        Integer [] t_resultat = {1};
+
+        Principali20.triDoubleSelection( t );
+
+        assertArrayEquals( t_resultat, t );
+    }
+    @Test
+    void triDoubleSelection2() {
+        Integer [] t = {1, 0};
+        Integer [] t_resultat = {0, 1};
+
+        Principali20.triDoubleSelection( t );
+
+        assertArrayEquals( t_resultat, t );
+    }
+    @Test
+    void triDoubleSelection3() {
+        Integer [] t = {1, 4, 3};
+        Integer [] t_resultat = {1, 3, 4};
+
+        Principali20.triDoubleSelection( t );
+
+        assertArrayEquals( t_resultat, t );
+    }
+    @Test
+    void triDoubleSelection4() {
+        Integer [] t = {2, 6, 3, 8, 1, 5};
+        Integer [] t_resultat = {1, 2, 3, 5, 6, 8};
+
+        Principali20.triDoubleSelection( t );
+
+        assertArrayEquals( t_resultat, t );
+    }
+    @Test
+    void triDoubleSelection5() {
+        Integer [] t = {5, 4, 3, 2, 1};
+        Integer [] t_resultat = {1, 2, 3, 4, 5};
+
+        Principali20.triDoubleSelection( t );
+
+        assertArrayEquals( t_resultat, t );
+    }
+    @Test
+    void triDoubleSelection6() {
+        Integer [] t = {5, 4, 3, 2, 1, 0};
+        Integer [] t_resultat = {0, 1, 2, 3, 4, 5};
+
+        Principali20.triDoubleSelection( t );
+
+        assertArrayEquals( t_resultat, t );
+    }
+
+
+
+
+    /**
+     * Les deux methodes suivante sont utilise pour les tests sur la methode 'classer'.
+     */
+
+
+    /**
+     * Compte le nombre de changemetn de classe qu'il y a dans un tableau :
+     * Un changement de classe arrive lorsque deux elements consecutif n'ont pas la
+     * meme classe.
+     *
+     * Cela permet de verifier le nombre de division reel que contient
+     * le tableau resultant.
+     *
+     * @param tab le tableau a tester.
+     * @param f   La fonction de classification.
+     * @param <E> Le type des elements du tableau.
+     * @param <F> Le type des classes.
+     * @return Le nombre de changement de classe que contient le tableau.
+     */
+    public static < E, F >
+    int nombreChangementClasse( E [] tab, Function< E, F > f ) {
+        int resultat = 0;
+        F classe = null;
+        Iterator< F > it = Arrays.stream( tab ).map( f ).iterator();
+        while( it.hasNext() ) {
+            F x = it.next();
+            if( classe == null || ! classe.equals( x ) ) {
+                ++ resultat;
+                classe = x;
+            }
+        }
+        return resultat;
+    }
+
+    /**
+     * Cette methode verifie que deux tableaux contiennent les memes elements,
+     * peu importe leur position.
+     * @param t1 le premier tableau a comparer
+     * @param t2 le deuxieme tableau a comparer
+     * @param <E> Le type des elements des deux tableau.
+     * @return true si les deux tableaux contiennent les memes elements.
+     */
+    public static < E extends Comparable< E > >
+    boolean memeElement( E[]t1, E[]t2 ) {
+        E [] tc1 = Arrays.copyOf( t1, t1.length );
+        Arrays.sort( tc1 );
+        Arrays.sort( t2 );
+        return Arrays.equals( tc1, t2 );
+    }
+
+    /**
+     * une premiere fonction de classification, les nombres pair et les
+     * nombre impair.
+     */
+    public static Function< Integer, Integer > mod2 = x -> x % 2;
+
+    /**
+     * une deuxieme fonction de classification, le reste de la division
+     * par 3.
+     */
+    public static Function< Integer, Integer > mod3 = x -> x % 3;
+
+    @Test
+    void classer1() {
+        Integer [] t = {};
+        Integer[] t2 = Arrays.copyOf( t, t.length );
+
+        Principali20.classer( t, mod2 );
+
+        assertEquals( 0, nombreChangementClasse( t, mod2 ) );
+        assertEquals( t2.length, t.length );
+        assertTrue( memeElement( t, t2 ) );
+    }
+    @Test
+    void classer2() {
+        Integer [] t = {0,2,4,6,8};
+        Integer[] t2 = Arrays.copyOf( t, t.length );
+
+        Principali20.classer( t, mod2 );
+
+        assertEquals( 1, nombreChangementClasse( t, mod2 ) );
+        assertEquals( t2.length, t.length );
+        assertTrue( memeElement( t, t2 ) );
+    }
+    @Test
+    void classer3() {
+        Integer [] t = {0, 1, 2, 3, 4};
+        Integer[] t2 = Arrays.copyOf( t, t.length );
+
+        Principali20.classer( t, mod2 );
+
+        assertEquals( 2, nombreChangementClasse( t, mod2 ) );
+        assertEquals( t2.length, t.length );
+        assertTrue( memeElement( t, t2 ) );
+    }
+    @Test
+    void classer4() {
+        Integer [] t = {0};
+        Integer[] t2 = Arrays.copyOf( t, t.length );
+
+        Principali20.classer( t, mod2 );
+
+        assertEquals( 1, nombreChangementClasse( t, mod2 ) );
+        assertEquals( t2.length, t.length );
+        assertTrue( memeElement( t, t2 ) );
+    }
+    @Test
+    void classer5() {
+        Integer [] t = {0, 0, 1, 2, 3, 1, 4};
+        Integer[] t2 = Arrays.copyOf( t, t.length );
+
+        Principali20.classer( t, mod2 );
+
+        assertEquals( 2, nombreChangementClasse( t, mod2 ) );
+        assertEquals( t2.length, t.length );
+        assertTrue( memeElement( t, t2 ) );
+    }
+    @Test
+    void classer6() {
+        Integer [] t = {0, 2, 4, 6, 8, 10, 12, 14, 16, 18};
+        Integer[] t2 = Arrays.copyOf( t, t.length );
+
+        Principali20.classer( t, mod3 );
+
+        assertEquals( 3, nombreChangementClasse( t, mod3 ) );
+        assertEquals( t2.length, t.length );
+        assertTrue( memeElement( t, t2 ) );
+    }
+
+
+
+
+    @Test
+    void echanger1() {
+        Pile< Integer > p = new Pile<>();
+
+        p.echanger();
+
+        assertTrue( p.estVide() );
+    }
+    @Test
+    void echanger2() {
+        Pile< Integer > p = new Pile<>();
+        p.empiler( 3 );
+
+        p.echanger();
+
+        try {
+            assertEquals( 3, p.depiler() );
+            assertTrue( p.estVide() );
+        } catch ( ExceptionPileVide e ) {
+            fail( "Il devrait y avoir une valeur sur la pile." );
+        }
+    }
+    @Test
+    void echanger3() {
+        Pile< Integer > p = new Pile<>();
+        p.empiler( 3 );
+        p.empiler( 5 );
+
+        p.echanger();
+
+        try {
+            assertEquals( 3, p.depiler() );
+            assertEquals( 5, p.depiler() );
+            assertTrue( p.estVide() );
+        } catch ( ExceptionPileVide e ) {
+            fail( "Il devrait y avoir une valeur sur la pile." );
+        }
+    }
+    @Test
+    void echanger4() {
+        Pile< Integer > p = new Pile<>();
+        p.empiler( 3 );
+        p.empiler( 5 );
+        p.empiler( 4 );
+
+        p.echanger();
+
+        try {
+            assertEquals( 5, p.depiler() );
+            assertEquals( 4, p.depiler() );
+            assertEquals( 3, p.depiler() );
+            assertTrue( p.estVide() );
+        } catch ( ExceptionPileVide e ) {
+            fail( "Il devrait y avoir une valeur sur la pile." );
+        }
+    }
+    @Test
+    void echanger5() {
+        Pile< Integer > p = new Pile<>();
+        p.empiler( 3 );
+        p.empiler( 5 );
+        p.empiler( 4 );
+
+        p.echanger();
+        p.empiler( 1 );
+
+        try {
+            assertEquals( 1, p.depiler() );
+            assertEquals( 5, p.depiler() );
+            assertEquals( 4, p.depiler() );
+            assertEquals( 3, p.depiler() );
+            assertTrue( p.estVide() );
+        } catch ( ExceptionPileVide e ) {
+            fail( "Il devrait y avoir une valeur sur la pile." );
+        }
+    }
+    @Test
+    void echanger6() {
+        Pile< Integer > p = new Pile<>();
+        p.empiler( 3 );
+        p.empiler( 5 );
+        p.empiler( 4 );
+        p.empiler( 1 );
+
+        p.echanger();
+        p.echanger();
+
+        try {
+            assertEquals( 1, p.depiler() );
+            assertEquals( 4, p.depiler() );
+            assertEquals( 5, p.depiler() );
+            assertEquals( 3, p.depiler() );
+            assertTrue( p.estVide() );
+        } catch ( ExceptionPileVide e ) {
+            fail( "Il devrait y avoir une valeur sur la pile." );
+        }
+    }
+
+
+
+
+    @Test
+    void nettoyer1() {
+        Phrase p = new Phrase();
+        List< String > r = Arrays.asList();
+
+        p.nettoyer();
+
+        assertIterableEquals( r, p );
+    }
+    @Test
+    void nettoyer2() {
+        Phrase p = new Phrase( Arrays.asList( "il" ) );
+        List< String > r = Arrays.asList();
+
+        p.nettoyer();
+
+        assertIterableEquals( r, p );
+    }
+    @Test
+    void nettoyer3() {
+        Phrase p = new Phrase( Arrays.asList( "y" ) );
+        List< String > r = Arrays.asList( "y" );
+
+        p.nettoyer();
+
+        assertIterableEquals( r, p );
+    }
+    @Test
+    void nettoyer4() {
+        Phrase p = new Phrase( Arrays.asList( "il", "il", "y" ) );
+        List< String > r = Arrays.asList( "y" );
+
+        p.nettoyer();
+
+        assertIterableEquals( r, p );
+    }
+    @Test
+    void nettoyer5() {
+        Phrase p = new Phrase( Arrays.asList( "il", "devrait", "y", "avoir", "une", "valeur", "sur", "la", "pile" ) );
+        List< String > r = Arrays.asList( "y", "une", "valeur", "pile" );
+
+        p.nettoyer();
+
+        assertIterableEquals( r, p );
+    }
+    @Test
+    void nettoyer6() {
+        Phrase p = new Phrase( Arrays.asList( "Il", "Devrait", "Y", "AvoiR", "Une", "ValeuR", "Sur", "LA", "PILE" ) );
+        List< String > r = Arrays.asList( "Y", "Une", "ValeuR", "PILE" );
+
+        p.nettoyer();
+
+        assertIterableEquals( r, p );
+    }
+}
