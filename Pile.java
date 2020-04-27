@@ -10,7 +10,7 @@ public class Pile< E > {
         }
     }
 
-    protected Chainon sommet;
+    protected Chainon sommet; //erjaa be avalin onsore list
 
     /**
      * QUESTION 4
@@ -39,7 +39,12 @@ public class Pile< E > {
      */
     public void echanger() {
         // Placez votre code ici pour la question 4.
-
+        if(sommet != null && sommet.precedant !=  null){
+            Chainon temp = sommet;
+            sommet=sommet.precedant;
+            temp.precedant = sommet.precedant;
+            sommet.precedant = temp;
+        }
     }
 
     public boolean estVide() {
