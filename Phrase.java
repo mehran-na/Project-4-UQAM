@@ -39,9 +39,21 @@ public class Phrase extends ArrayList< String > {
      */
     public void nettoyer() {
         // Placez votre code ici pour la question 3.
-        ArrayList<Integer> index = new ArrayList<>();
+        ArrayList<Integer> positions = new ArrayList<>();
 
-        for(String item : MOT_VIDE) {
+        for (int i = 0; i < this.size(); i++){
+            int pos = -1;
+            for(String item : MOT_VIDE){
+                if(this.get(i).compareToIgnoreCase(item) == 0){
+                    pos = i;
+                }
+            }
+            if(pos != -1){
+                positions.add(pos);
+            }
+        }
+
+        /*for(String item : MOT_VIDE) {
             for(int i = 0; i < this.size(); i++) {
                 if (this.get(i).toLowerCase().equals(item) && !index.contains(i)) {
                     index.add(i);
@@ -62,11 +74,11 @@ public class Phrase extends ArrayList< String > {
             temp = index.get(min);
             index.set(min,index.get(i));
             index.set(i,temp);
-        }
+        }*/
 
         int num = -1;
-        for(int i = index.size() - 1; i >= 0; i--) {
-            num = index.get(i);
+        for(int i = positions.size() - 1; i >= 0; i--) {
+            num = positions.get(i);
             this.remove(num);
         }
     }
