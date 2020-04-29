@@ -10,7 +10,7 @@ public class Pile< E > {
         }
     }
 
-    protected Chainon sommet; //erjaa be avalin onsore list
+    protected Chainon sommet;
 
     /**
      * QUESTION 4

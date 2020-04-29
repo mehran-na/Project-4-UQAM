@@ -13,16 +13,17 @@ public class Principali20 {
      *
      * ************************************************************************
      * Placez votre analyse de complexite temporelle ici, analyse de pire cas :
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
+     * Le pire des cas est lorsque le nombre maximum est dans l'index zéro ou
+     * le nombre minimum dans le dernier index.Dans ce cas,
+     * l'ordre de mouvement est important.
+     * Par exemple : si le nombre maximum est dans l'index  zéro nous devons
+     * d'abord le déplacer à la fin du tableau.sinon si nous apportons d'abord
+     * le minimum à l'index zéro dans le tableau et essayons ensuite de déplacer
+     * le nombre maximum, nous envoyons par erreur le minimum à la fin du tableau.
+     * résumer : Lorsque le nombre maximum est dans l'index zéro du tableau,
+     * il faut d'abord le aporter à la fin du tableau puis ramener le nombre minimum au début. et
+     * Lorsque le nombre minimum est dernier élément du tableau, il faut d'abord le aporter au début
+     * du tableau puis ramener le nombre maximum à la fin.
      * ************************************************************************
      *
      * @param tab Le tableau a trier.
@@ -36,11 +37,11 @@ public class Principali20 {
         int max;
         E tempMin;
         E tempMax;
-        for(int index = 0; index < tab.length - 1; index++) {
-            min = index;
-            max = index;
+        for(int i = 0; i < tab.length - 1; i++) {
+            min = i;
+            max = i;
 
-            for(int scan = index; scan < tab.length; scan++) {
+            for(int scan = i; scan < tab.length; scan++) {
                 if (tab[scan].compareTo(tab[min]) < 0) {
                     min = scan;
                 }
@@ -52,23 +53,23 @@ public class Principali20 {
             tempMin = tab[min];
             tempMax = tab[max];
             if (tab.length > 2) {
-                if (max == index && min == tab.length - 1) {
-                    tab[index] = tempMin;
+                if (max == i && min == tab.length - 1) {
+                    tab[i] = tempMin;
                     tab[tab.length - 1] = tempMax;
-                }else if (max == index) {
+                }else if (max == i) {
                     tab[max] = tab[tab.length - 1];
                     tab[tab.length - 1] = tempMax;
-                    tab[min] = tab[index];
-                    tab[index] = tempMin;
+                    tab[min] = tab[i];
+                    tab[i] = tempMin;
                 }else{
-                    tab[min] = tab[index];
-                    tab[index] = tempMin;
+                    tab[min] = tab[i];
+                    tab[i] = tempMin;
                     tab[max] = tab[tab.length - 1];
                     tab[tab.length - 1] = tempMax;
                 }
             }else{
-                tab[min] = tab[index];
-                tab[index] = tempMin;
+                tab[min] = tab[i];
+                tab[i] = tempMin;
             }
         }
     }
@@ -81,8 +82,12 @@ public class Principali20 {
      *
      * ************************************************************************
      * Placez votre Lamda ici :
-     *
-     *
+     * public static Function< String, Boolean > trouverMots =
+     * x -> {
+     *  return Character.isUpperCase(x.charAt(0)) && x.length() >= 5;
+     * };
+     * La sortie de cette méthod est true ou false. true signifie ce mot commence par
+     * une majuscule et il a plus de 4 caractères. puis on peut regrouper les mots dans le algorithm.
      *
      *
      * ************************************************************************
