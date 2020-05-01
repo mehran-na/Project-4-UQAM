@@ -300,8 +300,33 @@ public class ArbreBinaire< Clef extends Comparable< Clef > > {
      */
     public int hauteur( Clef cible ) {
         // Placez votre code ici pour la question 5.
+        int hauteur = 0;
+        int combienEnfents = -1;
+        Noeud<Clef> courant = null;
 
-        return 0;
+        if(this.contient(cible)){
+            hauteur++;
+            Pair pair = this.rechercheNoeud(cible);
+            courant = (Noeud) pair.deuxieme;
+
+            combienEnfents = CheckCombienEnfant(courant);
+
+            if(combienEnfents == 0){
+                //hauteur++;
+            }else if (combienEnfents == 1){
+                String direction = trouverDirection(courant);
+                if(direction.equals("gauche")){
+                    hauteur += hauteur(courant._gauche._clef);
+                }else{
+                    hauteur += hauteur(courant._droite._clef);
+                }
+            }else{
+                int hauteurDroite = hauteur(courant._droite._clef);
+                int hauteurGauche = hauteur(courant._gauche._clef);
+                hauteur += (hauteurDroite > hauteurGauche)?hauteurDroite:hauteurGauche;
+            }
+        }
+        return hauteur;
     }
 
     /**
@@ -312,5 +337,25 @@ public class ArbreBinaire< Clef extends Comparable< Clef > > {
         return ( null != _racine )
                 ? _racine.toString()
                 : "vide";
+    }
+
+    private int CheckCombienEnfant(Noeud deuxiem) {
+        int enfants = 0;
+        if ((deuxiem._gauche == null && deuxiem._droite != null) || (deuxiem._gauche != null && deuxiem._droite == null)) {
+            enfants = 1;
+        }else if (deuxiem._gauche != null && deuxiem._droite != null) {
+            enfants = 2;
+        }
+        return enfants;
+    }
+
+    public String trouverDirection(Noeud deuxiem){
+        String resultat = "";
+        if(deuxiem._gauche != null && deuxiem._droite == null){
+            resultat = "gauche";
+        }else{
+            resultat = "droite";
+        }
+        return resultat;
     }
 }
