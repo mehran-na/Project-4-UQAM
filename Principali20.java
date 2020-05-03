@@ -1,4 +1,12 @@
-
+/**
+ * Classe Principali20
+ *
+ * @author : Mehran Nazemi
+ * @version : mai 2020 (TP4)
+ * @Professeur : M.Bruno Malenfant
+ * @email : nazemi.mehran@courrier.uqam.ca
+ * @code permanent  : NAZM30088507
+ */
 import java.util.function.Function;
 
 public class Principali20 {
@@ -13,6 +21,7 @@ public class Principali20 {
      *
      * ************************************************************************
      * Placez votre analyse de complexite temporelle ici, analyse de pire cas :
+     *
      * Le pire des cas est lorsque le nombre maximum est dans l'index zéro ou
      * le nombre minimum dans le dernier index.Dans ce cas,
      * l'ordre de mouvement est important.

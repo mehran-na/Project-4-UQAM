@@ -14,28 +14,28 @@ public class Pile<E> {
 
     /**
      * QUESTION 4
-     *
+     * <p>
      * Echange les deux premier chainons de place.
-     *
+     * <p>
      * Le chainon contenant le sommet et le chainon precedant sont echanges.
      * Ce N'EST PAS seulement les valeurs qui change, mais les chainons.
      * Cela va vous demander de deplacer les references (pointeur).
-     *
-     *
+     * <p>
+     * <p>
      * ************************************************************************
      * Placez vos explications ici :
-     *
+     * <p>
      * au début j'ai utiliser "if", si pile est vide ou il a seulement une valeur alors la méthod
      * ne fait rien. si il a plus que une valeur alors :
-     *
+     * <p>
      * Avec le code "Chainon temp = sommet; "J'ai créer une variable objet local
      * qui référe au premier élément(comme sommet).
-     *
+     * <p>
      * puis avec le code "sommet = sommet.precedant;" sommet référe au deuxiem élément.
-     *
+     * <p>
      * puis avec le code "temp.precedant = sommet.precedant;" le premier élément va référer
      * Au Au troisième élément ou null (si il n'y a pas troisième élément).
-     *
+     * <p>
      * puis avec le code "sommet.precedant = temp;" le deuxième élément référe au premier élément.
      * ************************************************************************
      */

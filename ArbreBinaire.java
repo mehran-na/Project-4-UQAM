@@ -287,23 +287,29 @@ public class ArbreBinaire<Clef extends Comparable<Clef>> {
      * ************************************************************************
      * Placez vos explications ici :
      * <p>
-     * au début j'ai vérifié qu'il y a cible dans l'arbre binaire ou non,
-     * si il n'y a pas alors hauteur est zéro. si il y a cible dans arbre alors au début de block
-     * de if j'ai augmenté 1 à la hauteur.
+     * au début j'ai vérifié que l'arbre n'est pas vide et il y a cible dans l'arbre,
+     * si l'arbre est vide ou il n'y a pas cible dans l'arbre alors hauteur est zéro.
+     * <p>
+     * si il y a cible dans arbre alors au début j'ai augmenté 1 à la hauteur parce que je sais au minimum l'hauteur
+     * est 1 (quand cible est à la fin du arbre).
+     * <p>
      * puis j'ai chreché pour la cible dans l'arbre avec méthode rechercheNoeud()
      * la méthode return un object pair, et je besoin de field deuxieme dans cette object
-     * parce que pour calculer la hauteur j'ai besion des enfants du object.
+     * parce que pour calculer la hauteur j'ai besion vérifier des enfants du objet.
+     * <p>
      * Maintenant je dois savoir qu'il a combien enfants direct, soit 0, 1 ou 2
-     * alors j'si créer une méthode : "CheckCombienEnfant()" pour calculer d'enfant direct du noeud
+     * alors j'ai créer une méthode : "CheckCombienEnfant()" pour trouver d'enfant direct du noeud
      * si la méthod return zéro ça veut dire qu'il a dérnier noeud dans l'arbre alors hauteur va réster 1.
      * <p>
      * Si il y a 1 enfant alors je doit trouver que son enfant est à gauche ou à droite. pour cette tâche
-     * j'ai créer autre méthod qui prendre un noeud et elle trouve que son enfant est dans quelle direction
-     * Quand je trouve la direction alors j'appelle la method hauteur por cet enfant. (récursion) et la resultat
+     * j'ai créer autre méthod qui prendre un noeud et elle dit que  l'enfant du noeud  est dans quelle direction.
+     * <p>
+     * Quand je trouve la direction alors j'appelle la method hauteur por cet enfant (récursion) et la resultat
      * va ajouter à la hauteur.
      * <p>
-     * Si le noeud a 2 enfants alors il faut calculer l'hauteur de ses enfant puis on vois qui est plus grand
-     * alors on va ajoutr la hauteur maximum + 1 pour notre noeud.
+     * Si le noeud a 2 enfants alors il faut calculer l'hauteur de ses enfant (récursion) puis on vois qui est
+     * le plus grand donc on va ajoutr la hauteur maximum + 1 pour notre noeud.
+     *
      * <p>
      * ************************************************************************
      *
@@ -346,9 +352,11 @@ public class ArbreBinaire<Clef extends Comparable<Clef>> {
     }
 
     /*
-     * Trouver enfants directes d'un noeud
-     * @pram Noeud : le noeud que on veut trouver son nombre d'enfants
-     * @return int : nombre d'enfants directes du noeud
+     * Trouver le nombre d'enfants directes d'un noeud.
+     *
+     * @pram Noeud : le noeud que on veut trouver son nombre d'enfants.
+     *
+     * @return int : nombre d'enfants directes du noeud.
      *
      * */
     private int CheckCombienEnfant(Noeud deuxiem) {
@@ -362,9 +370,12 @@ public class ArbreBinaire<Clef extends Comparable<Clef>> {
     }
 
     /*
-     * Trouver la direction d'enfant direct du noeud
-     * @pram Noeud : le noeud que on veut trouver la direction de son enfant
-     * @return String : la direction de son enfant
+     * Trouver la direction d'enfant direct du noeud.
+     *
+     * @pram Noeud : le noeud que on sait qu'il a juste un enfant et
+     * on veut trouver la direction de son enfant.
+     *
+     * @return String : la direction de son enfant.
      * */
     public String trouverDirection(Noeud deuxiem) {
         String resultat = "";
